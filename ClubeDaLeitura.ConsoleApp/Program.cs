@@ -4,7 +4,8 @@
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello, World!");
+            TelaAmigo telaAmigo = new TelaAmigo();
+            telaAmigo.MostrarMenu();
         }
     }
 }
