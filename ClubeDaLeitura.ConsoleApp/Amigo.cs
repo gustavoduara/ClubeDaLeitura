@@ -9,16 +9,30 @@ namespace ClubeDaLeitura.ConsoleApp
     public class Amigo
     {
         public int Id;
-        public string Name;
+        public string Nome;
         public string Responsavel;
         public string Telefone;
 
-        public Amigo(int Id, string nome, string responsavel, string telefone) 
+        public Amigo(int id, string nome, string responsavel, string telefone) 
         {
-            Id = Id;
-            Name = nome;
+            Id = id;
+            Nome = nome;
             Responsavel = responsavel;
             Telefone = telefone;
+        }
+
+        public string Validar()
+        {
+            if (string.IsNullOrWhiteSpace(Nome) || Nome.Length < 3)
+                return "O campo 'Nome' é obrigatório e precisa conter ao menos 3 caracteres.";
+
+            if (string.IsNullOrWhiteSpace(Responsavel))
+                return "O campo 'Responsável' é obrigatório.";
+
+            if (string.IsNullOrWhiteSpace(Telefone))
+                return "O campo 'Telefone' é obrigatório.";
+
+            return "";
         }
 
 
