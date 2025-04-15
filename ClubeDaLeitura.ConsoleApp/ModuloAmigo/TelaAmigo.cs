@@ -14,6 +14,7 @@ public class TelaAmigo
             Console.WriteLine("== Clube da Leitura - Amigos ==");
             Console.WriteLine("1 - Inserir novo amigo");
             Console.WriteLine("2 - Listar amigos");
+            Console.WriteLine("3 - Excluir amigo");
             Console.WriteLine("S - Sair");
             Console.Write("Opção: ");
             opcao = char.ToUpper(Console.ReadKey().KeyChar);
@@ -64,5 +65,20 @@ public class TelaAmigo
         }
 
         Console.ReadLine();
+    }
+
+    public void ExcluirAmigo()
+    {
+        Console.Clear();
+        Console.WriteLine("-- Excluir amigo --");
+        ListarAmigos();
+
+        Console.Write("Digite o ID do amigo que deseja excluir: ");
+        int id = Convert.ToInt32(Console.ReadLine());
+
+        repositorio.Excluir(id);
+
+        Console.WriteLine("Amigo excluído com sucesso!");
+        Console.ReadKey();
     }
 }

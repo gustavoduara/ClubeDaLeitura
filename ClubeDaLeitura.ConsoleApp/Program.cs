@@ -33,11 +33,11 @@ namespace ClubeDaLeitura.ConsoleApp
                 opcao = char.ToUpper(Console.ReadKey().KeyChar);
 
                 if (opcao == '1')
-                    telaAmigo.MostrarMenu();  // Chama o menu de Amigos
+                    telaAmigo.MostrarMenu(); 
                 else if (opcao == '2')
-                    telaCaixa.MostrarMenu();  // Chama o menu de Caixas
+                    telaCaixa.MostrarMenu();  
                 else if (opcao == '3')
-                    telaRevista.MostrarMenu();  // Chama o menu de Revistas
+                    telaRevista.MostrarMenu(); 
                 else if (opcao == '4')
                     telaEmprestimo.MostrarMenu();
 
