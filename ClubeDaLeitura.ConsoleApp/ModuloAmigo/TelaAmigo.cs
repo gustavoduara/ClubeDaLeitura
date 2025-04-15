@@ -15,6 +15,7 @@ public class TelaAmigo
             Console.WriteLine("1 - Inserir novo amigo");
             Console.WriteLine("2 - Listar amigos");
             Console.WriteLine("3 - Excluir amigo");
+            Console.WriteLine("4 - Editar amigo");
             Console.WriteLine("S - Sair");
             Console.Write("Opção: ");
             opcao = char.ToUpper(Console.ReadKey().KeyChar);
@@ -23,6 +24,10 @@ public class TelaAmigo
                 InserirAmigo();
             else if (opcao == '2')
                 ListarAmigos();
+            else if (opcao == '3')
+                EditarAmigo();
+            else if (opcao == '4')
+                ExcluirAmigo();
 
         } while (opcao != 'S');
     }
@@ -79,6 +84,33 @@ public class TelaAmigo
         repositorio.Excluir(id);
 
         Console.WriteLine("Amigo excluído com sucesso!");
+        Console.ReadKey();
+    }
+
+    public void EditarAmigo()
+    {
+        Console.Clear();
+        Console.WriteLine("-- Editar amigo --");
+
+        ListarAmigos();
+
+        Console.Write("Digite o ID do amigo que deseja editar: ");
+        int id = Convert.ToInt32(Console.ReadLine());
+
+        Console.Write("Novo nome: ");
+        string nome = Console.ReadLine();
+
+        Console.Write("Novo telefone0: ");
+        string telefone = Console.ReadLine();
+
+        Console.Write("Novo responsável: ");
+        string responsavel = Console.ReadLine();
+
+        Amigo amigoEditado = new Amigo(id, nome, responsavel, telefone);
+
+        repositorio.Editar(id, amigoEditado);
+
+        Console.WriteLine("Amigo editado com sucesso!");
         Console.ReadKey();
     }
 }

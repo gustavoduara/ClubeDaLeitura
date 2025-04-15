@@ -35,5 +35,17 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
                 }
             }
         }
+
+        public void Editar(int id, Amigo amigoEditado)
+        {
+            for (int i = 0; i < contador; i++)
+            {
+                if (amigos[i].Id == id)
+                {
+                    amigos[i] = amigoEditado;
+                    break;
+                }
+            }
+        }
     }
 }
