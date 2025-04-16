@@ -14,4 +14,30 @@ public class RepositorioRevista
     {
         return revistas;
     }
+
+    public Revista SelecionarPorId(int id)
+    {
+        for (int i = 0; i < contador; i++)
+        {
+            if (revistas[i] != null && revistas[i].Id == id)
+                return revistas[i];
+        }
+
+        return null;
+    }
+
+    public bool Excluir(int id)
+    {
+        for (int i = 0; i < contador; i++)
+        {
+            if (revistas[i] != null && revistas[i].Id == id)
+            {
+                revistas[i] = null;
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
+
