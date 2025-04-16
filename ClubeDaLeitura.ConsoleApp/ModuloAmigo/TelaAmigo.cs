@@ -37,14 +37,30 @@ public class TelaAmigo
         Console.Clear();
         Console.WriteLine("-- Inserir novo amigo --");
 
-        Console.Write("Nome: ");
-        string nome = Console.ReadLine();
+        string nome;
+        do
+        {
+            Console.Write("Nome (mínimo 3, máximo 100 caracteres): ");
+            nome = Console.ReadLine();
 
-        Console.Write("Responsável: ");
-        string responsavel = Console.ReadLine();
+            if (nome.Length < 3 || nome.Length > 100)
+                Console.WriteLine("Nome inválido. Tente novamente.");
+        }
+        while (nome.Length < 3 || nome.Length > 100);
 
         Console.Write("Telefone: ");
         string telefone = Console.ReadLine();
+
+        string responsavel;
+        do
+        {
+            Console.Write("Responsável (mínimo 3, máximo 100 caracteres): ");
+            responsavel = Console.ReadLine();
+
+            if (responsavel.Length < 3 || responsavel.Length > 100)
+                Console.WriteLine("Responsável inválido. Tente novamente.");
+        }
+        while (responsavel.Length < 3 || responsavel.Length > 100);
 
         int id = repositorio.contador + 1;
 
