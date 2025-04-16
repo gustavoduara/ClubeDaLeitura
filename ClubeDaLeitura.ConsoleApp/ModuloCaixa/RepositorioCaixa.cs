@@ -15,4 +15,35 @@ public class RepositorioCaixa
     {
         return caixas;
     }
+
+    public Caixa BuscarPorId(int id)
+    {
+        for (int i = 0; i < contador; i++)
+        {
+            if (caixas[i].Id == id)
+                return caixas[i];
+        }
+        return null;
+    }
+
+    public bool Excluir(int id)
+    {
+        for (int i = 0; i < contador; i++)
+        {
+            if (caixas[i].Id == id)
+            {
+                for (int j = i; j < contador - 1; j++)
+                {
+                    caixas[j] = caixas[j + 1];
+                }
+
+                caixas[contador - 1] = null;
+                contador--;
+
+                return true;
+            }
+        }
+
+        return false;
+    }
 }
