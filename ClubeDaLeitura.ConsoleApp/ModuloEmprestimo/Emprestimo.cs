@@ -16,14 +16,30 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloEmprestimo
         public DateTime DataDevolucao;
         public string Status;
 
-        public Emprestimo(int id, Amigo amigo, Revista revista, DateTime dataEmprestimo, DateTime dataDevolucao)
+        public Emprestimo(int id, Amigo amigo, Revista revista, DateTime dataEmprestimo)
         {
             Id = id;
             Amigo = amigo;
             Revista = revista;
             DataEmprestimo = dataEmprestimo;
-            DataDevolucao = dataDevolucao;
+
+            int diasEmprestimo = revista.Caixa.DiasEmprestimo;
+            DataDevolucao = dataEmprestimo.AddDays(diasEmprestimo);
+
             Status = "Aberto";
+        }
+
+        public void Concluir()
+        {
+            Status = "Concluído";
+        }
+
+        public void VerificarAtraso()
+        {
+            if (Status == "Aberto" && DataDevolucao < DateTime.Today)
+            {
+                Status = "Atrasado";
+            }
         }
     }
 }

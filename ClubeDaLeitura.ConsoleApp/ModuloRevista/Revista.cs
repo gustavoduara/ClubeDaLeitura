@@ -1,15 +1,21 @@
-﻿public class Revista
-{
-    public int Id;
-    public string Nome;
-    public string Editora;
-    public int Ano;
+﻿using ClubeDaLeitura.ConsoleApp.ModuloCaixa;
 
-    public Revista(int id, string nome, string editora, int ano)
+public class Revista
+{
+    public int Id { get; set; }
+    public string Titulo { get; set; }
+    public int NumeroEdicao { get; set; }
+    public int Ano { get; set; }
+    public Caixa Caixa { get; set; }
+    public string Status { get; set; }
+
+    public Revista(int id, string titulo, int numeroEdicao, int ano, Caixa caixa)
     {
         Id = id;
-        Nome = nome;
-        Editora = editora;
+        Titulo = titulo;
+        NumeroEdicao = numeroEdicao;
         Ano = ano;
+        Caixa = caixa;
+        Status = "Disponível";
     }
 }

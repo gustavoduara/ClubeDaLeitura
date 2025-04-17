@@ -3,49 +3,56 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 {
     public class RepositorioAmigo
     {
-        public Amigo[] amigos = new Amigo[100];
-        public int contador = 0;
+        public Amigo[] amigos;
+        public int contador;
 
-        public void Inserir(Amigo novoAmigo)
+        public RepositorioAmigo()
         {
-            novoAmigo.Id = contador + 1;
-            amigos[contador] = novoAmigo;
+            amigos = new Amigo[10];  // Tamanho fixo para exemplo
+            contador = 0;
+        }
+
+        public void Inserir(Amigo amigo)
+        {
+            amigos[contador] = amigo;
             contador++;
         }
 
         public Amigo[] Listar()
         {
-            return amigos;
+            Amigo[] amigosListados = new Amigo[contador];
+            Array.Copy(amigos, amigosListados, contador);
+            return amigosListados;
         }
 
-        public void Excluir(int id)
+        // Método para buscar um amigo pelo ID
+        public Amigo SelecionarPorId(int id)
+        {
+            for (int i = 0; i < contador; i++)
+            {
+                if (amigos[i].Id == id)
+                    return amigos[i];
+            }
+            return null;  // Retorna null se não encontrar o amigo com o ID especificado
+        }
+
+        public bool Excluir(int id)
         {
             for (int i = 0; i < contador; i++)
             {
                 if (amigos[i].Id == id)
                 {
-                    // "Puxa" os próximos itens para frente
+                    // Move os elementos à esquerda para preencher o vazio
                     for (int j = i; j < contador - 1; j++)
                     {
                         amigos[j] = amigos[j + 1];
                     }
-
+                    amigos[contador - 1] = null;
                     contador--;
-                    break;
+                    return true;
                 }
             }
-        }
-
-        public void Editar(int id, Amigo amigoEditado)
-        {
-            for (int i = 0; i < contador; i++)
-            {
-                if (amigos[i].Id == id)
-                {
-                    amigos[i] = amigoEditado;
-                    break;
-                }
-            }
+            return false;
         }
     }
 }

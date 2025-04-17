@@ -8,14 +8,16 @@ namespace ClubeDaLeitura.ConsoleApp
     {
         static void Main(string[] args)
         {
+            // Criando os repositórios
             RepositorioAmigo repositorioAmigo = new RepositorioAmigo();
             RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
             RepositorioRevista repositorioRevista = new RepositorioRevista();
             RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
 
-            TelaAmigo telaAmigo = new TelaAmigo();
-            TelaCaixa telaCaixa = new TelaCaixa();
-            TelaRevista telaRevista = new TelaRevista();
+            // Passando os repositórios para as telas
+            TelaAmigo telaAmigo = new TelaAmigo(repositorioAmigo); // Passando o repositório como parâmetro
+            TelaCaixa telaCaixa = new TelaCaixa(repositorioCaixa); // Passando o repositório como parâmetro
+            TelaRevista telaRevista = new TelaRevista(repositorioRevista, repositorioCaixa);
             TelaEmprestimo telaEmprestimo = new TelaEmprestimo(repositorioAmigo, repositorioRevista);
 
             char opcao;
@@ -33,11 +35,11 @@ namespace ClubeDaLeitura.ConsoleApp
                 opcao = char.ToUpper(Console.ReadKey().KeyChar);
 
                 if (opcao == '1')
-                    telaAmigo.MostrarMenu(); 
+                    telaAmigo.MostrarMenu();
                 else if (opcao == '2')
-                    telaCaixa.MostrarMenu();  
+                    telaCaixa.MostrarMenu();
                 else if (opcao == '3')
-                    telaRevista.MostrarMenu(); 
+                    telaRevista.MostrarMenu();
                 else if (opcao == '4')
                     telaEmprestimo.MostrarMenu();
 

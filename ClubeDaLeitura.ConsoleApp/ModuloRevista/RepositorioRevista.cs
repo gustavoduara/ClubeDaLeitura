@@ -4,10 +4,13 @@ public class RepositorioRevista
     public Revista[] revistas = new Revista[100];
     public int contador = 0;
 
-    public void Inserir(Revista novaRevista)
+    public void Inserir(Revista revista)
     {
-        revistas[contador] = novaRevista;
-        contador++;
+        if (contador < revistas.Length)
+        {
+            revistas[contador] = revista;
+            contador++;
+        }
     }
 
     public Revista[] Listar()
@@ -17,10 +20,12 @@ public class RepositorioRevista
 
     public Revista SelecionarPorId(int id)
     {
-        for (int i = 0; i < contador; i++)
+        foreach (var revista in revistas)
         {
-            if (revistas[i] != null && revistas[i].Id == id)
-                return revistas[i];
+            if (revista.Id == id)
+            {
+                return revista;
+            }
         }
 
         return null;

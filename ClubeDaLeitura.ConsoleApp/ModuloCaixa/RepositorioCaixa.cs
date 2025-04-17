@@ -2,46 +2,60 @@
 
 public class RepositorioCaixa
 {
-    public Caixa[] caixas = new Caixa[100];
-    public int contador = 0;
+    public List<Caixa> caixas { get; private set; }
+    public int contador { get; private set; }
 
-    public void Inserir(Caixa novaCaixa)
+    public RepositorioCaixa()
     {
-        caixas[contador] = novaCaixa;
-        contador++;
+        caixas = new List<Caixa>();
+        contador = 0;
     }
 
-    public Caixa[] Listar()
+    public void Inserir(Caixa caixa)
     {
-        return caixas;
+        caixas.Add(caixa);
+        contador++;
     }
 
     public Caixa BuscarPorId(int id)
     {
-        for (int i = 0; i < contador; i++)
+        return caixas.FirstOrDefault(c => c.Id == id);
+    }
+
+    public Caixa[] Listar()
+    {
+        return caixas.Take(contador).ToArray();
+    }
+
+    public bool Editar(int id, string etiqueta, string cor, int diasEmprestimo)
+    {
+        Caixa caixa = BuscarPorId(id);
+
+        if (caixa != null)
         {
-            if (caixas[i].Id == id)
-                return caixas[i];
+            caixa.Etiqueta = etiqueta;
+            caixa.Cor = cor;
+            caixa.DiasEmprestimo = diasEmprestimo;
+            return true;
         }
-        return null;
+
+        return false;
     }
 
     public bool Excluir(int id)
     {
-        for (int i = 0; i < contador; i++)
+        Caixa caixa = BuscarPorId(id);
+
+        if (caixa != null)
         {
-            if (caixas[i].Id == id)
+            if (caixa.Revistas.Count > 0)
             {
-                for (int j = i; j < contador - 1; j++)
-                {
-                    caixas[j] = caixas[j + 1];
-                }
-
-                caixas[contador - 1] = null;
-                contador--;
-
-                return true;
+                return false;
             }
+
+            caixas.Remove(caixa);
+            contador--;
+            return true;
         }
 
         return false;

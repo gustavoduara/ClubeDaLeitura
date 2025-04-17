@@ -2,26 +2,30 @@
 
 public class TelaAmigo
 {
-    private RepositorioAmigo repositorio = new RepositorioAmigo();
+    private RepositorioAmigo repositorioAmigo;
+
+    public TelaAmigo(RepositorioAmigo repositorioAmigo)
+    {
+        this.repositorioAmigo = repositorioAmigo;
+    }
 
     public void MostrarMenu()
     {
         char opcao;
-
         do
         {
             Console.Clear();
             Console.WriteLine("== Clube da Leitura - Amigos ==");
-            Console.WriteLine("1 - Inserir novo amigo");
+            Console.WriteLine("1 - Cadastrar novo amigo");
             Console.WriteLine("2 - Listar amigos");
-            Console.WriteLine("3 - Excluir amigo");
-            Console.WriteLine("4 - Editar amigo");
-            Console.WriteLine("S - Sair");
+            Console.WriteLine("3 - Editar amigo");
+            Console.WriteLine("4 - Excluir amigo");
+            Console.WriteLine("S - Voltar");
             Console.Write("Opção: ");
             opcao = char.ToUpper(Console.ReadKey().KeyChar);
 
             if (opcao == '1')
-                InserirAmigo();
+                CadastrarAmigo();
             else if (opcao == '2')
                 ListarAmigos();
             else if (opcao == '3')
@@ -32,101 +36,97 @@ public class TelaAmigo
         } while (opcao != 'S');
     }
 
-    public void InserirAmigo()
+    public void CadastrarAmigo()
     {
         Console.Clear();
-        Console.WriteLine("-- Inserir novo amigo --");
+        Console.WriteLine("-- Cadastro de Amigo --");
 
-        string nome;
-        do
-        {
-            Console.Write("Nome (mínimo 3, máximo 100 caracteres): ");
-            nome = Console.ReadLine();
+        Console.Write("Nome: ");
+        string nome = Console.ReadLine();
 
-            if (nome.Length < 3 || nome.Length > 100)
-                Console.WriteLine("Nome inválido. Tente novamente.");
-        }
-        while (nome.Length < 3 || nome.Length > 100);
+        Console.Write("Responsável: ");
+        string responsavel = Console.ReadLine();
 
         Console.Write("Telefone: ");
         string telefone = Console.ReadLine();
 
-        string responsavel;
-        do
-        {
-            Console.Write("Responsável (mínimo 3, máximo 100 caracteres): ");
-            responsavel = Console.ReadLine();
+        int id = repositorioAmigo.contador + 1;
 
-            if (responsavel.Length < 3 || responsavel.Length > 100)
-                Console.WriteLine("Responsável inválido. Tente novamente.");
-        }
-        while (responsavel.Length < 3 || responsavel.Length > 100);
+        Amigo novoAmigo = new Amigo(id, nome, responsavel, telefone);
 
-        int id = repositorio.contador + 1;
-
-        Amigo novo = new Amigo(id, nome, responsavel, telefone);
-
-        repositorio.Inserir(novo);
+        repositorioAmigo.Inserir(novoAmigo);
 
         Console.WriteLine("Amigo cadastrado com sucesso!");
+        Console.WriteLine("Pressione qualquer tecla para continuar...");
         Console.ReadKey();
     }
 
     public void ListarAmigos()
     {
         Console.Clear();
-        Console.WriteLine("-- Lista de amigos --");
+        Console.WriteLine("-- Lista de Amigos --");
 
-        Amigo[] lista = repositorio.Listar();
+        Amigo[] amigos = repositorioAmigo.Listar();
 
-        for (int i = 0; i < repositorio.contador; i++)
+        for (int i = 0; i < repositorioAmigo.contador; i++)
         {
-            Amigo a = lista[i];
-            Console.WriteLine($"ID: {a.Id} | Nome: {a.Nome} | Tel: {a.Telefone} | Resp: {a.Responsavel}");
+            Amigo amigo = amigos[i];
+            Console.WriteLine($"ID: {amigo.Id} | Nome: {amigo.Nome} | Responsável: {amigo.Responsavel} | Telefone: {amigo.Telefone}");
         }
 
-        Console.ReadLine();
-    }
-
-    public void ExcluirAmigo()
-    {
-        Console.Clear();
-        Console.WriteLine("-- Excluir amigo --");
-        ListarAmigos();
-
-        Console.Write("Digite o ID do amigo que deseja excluir: ");
-        int id = Convert.ToInt32(Console.ReadLine());
-
-        repositorio.Excluir(id);
-
-        Console.WriteLine("Amigo excluído com sucesso!");
+        Console.WriteLine("Pressione qualquer tecla para continuar...");
         Console.ReadKey();
     }
 
     public void EditarAmigo()
     {
         Console.Clear();
-        Console.WriteLine("-- Editar amigo --");
+        Console.WriteLine("-- Editar Amigo --");
 
         ListarAmigos();
 
         Console.Write("Digite o ID do amigo que deseja editar: ");
         int id = Convert.ToInt32(Console.ReadLine());
 
-        Console.Write("Novo nome: ");
-        string nome = Console.ReadLine();
+        Amigo amigoExistente = repositorioAmigo.SelecionarPorId(id);
 
-        Console.Write("Novo telefone0: ");
-        string telefone = Console.ReadLine();
+        if (amigoExistente == null)
+        {
+            Console.WriteLine("Amigo não encontrado!");
+            Console.ReadKey();
+            return;
+        }
+
+        Console.Write("Novo nome: ");
+        amigoExistente.Nome = Console.ReadLine();
 
         Console.Write("Novo responsável: ");
-        string responsavel = Console.ReadLine();
+        amigoExistente.Responsavel = Console.ReadLine();
 
-        Amigo amigoEditado = new Amigo(id, nome, responsavel, telefone);
-
-        repositorio.Editar(id, amigoEditado);
+        Console.Write("Novo telefone: ");
+        amigoExistente.Telefone = Console.ReadLine();
 
         Console.WriteLine("Amigo editado com sucesso!");
+        Console.ReadKey();
+    }
+
+    public void ExcluirAmigo()
+    {
+        Console.Clear();
+        Console.WriteLine("-- Excluir Amigo --");
+
+        ListarAmigos();
+
+        Console.Write("Digite o ID do amigo que deseja excluir: ");
+        int id = Convert.ToInt32(Console.ReadLine());
+
+        bool removido = repositorioAmigo.Excluir(id);
+
+        if (removido)
+            Console.WriteLine("Amigo excluído com sucesso!");
+        else
+            Console.WriteLine("Não foi possível excluir o amigo.");
+
         Console.ReadKey();
     }
 }

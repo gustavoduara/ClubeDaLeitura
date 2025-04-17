@@ -4,16 +4,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
+namespace ClubeDaLeitur
+a.ConsoleApp.ModuloAmigo
 {
     public class Amigo
     {
-        public int Id;
-        public string Nome;
-        public string Responsavel;
-        public string Telefone;
-
-        public Amigo(int id, string nome, string responsavel, string telefone) 
+        public int Id { get; set; }
+        public string Nome { get; set; }
+        public string Responsavel { get; set; }
+        public string Telefone { get; set; }
+        public Amigo(int id, string nome, string responsavel, string telefone)
         {
             Id = id;
             Nome = nome;
@@ -34,7 +34,5 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
 
             return "";
         }
-
-
     }
 }

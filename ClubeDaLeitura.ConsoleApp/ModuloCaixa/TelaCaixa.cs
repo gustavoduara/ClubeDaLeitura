@@ -8,12 +8,16 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
 {
     public class TelaCaixa
     {
-        private RepositorioCaixa repositorio = new RepositorioCaixa();
+        private RepositorioCaixa repositorioCaixa;
+
+        public TelaCaixa(RepositorioCaixa repositorioCaixa)
+        {
+            this.repositorioCaixa = repositorioCaixa;
+        }
 
         public void MostrarMenu()
         {
             char opcao;
-
             do
             {
                 Console.Clear();
@@ -49,14 +53,14 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
             Console.Write("Cor: ");
             string cor = Console.ReadLine();
 
-            Console.Write("Número: ");
-            int numero = Convert.ToInt32(Console.ReadLine());
+            Console.Write("Dias de empréstimo: ");
+            int diasEmprestimo = Convert.ToInt32(Console.ReadLine());
 
-            int id = repositorio.contador + 1;
+            int id = repositorioCaixa.contador + 1;
 
-            Caixa nova = new Caixa(id, etiqueta, cor, numero);
+            Caixa nova = new Caixa(id, etiqueta, cor, diasEmprestimo);
 
-            repositorio.Inserir(nova);
+            repositorioCaixa.Inserir(nova);
 
             Console.WriteLine("Caixa cadastrada com sucesso!");
             Console.WriteLine("Pressione qualquer tecla para continuar...");
@@ -68,16 +72,16 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
             Console.Clear();
             Console.WriteLine("-- Lista de caixas --");
 
-            Caixa[] lista = repositorio.Listar();
+            Caixa[] lista = repositorioCaixa.Listar();
 
-            for (int i = 0; i < repositorio.contador; i++)
+            for (int i = 0; i < repositorioCaixa.contador; i++)
             {
                 Caixa c = lista[i];
-                Console.WriteLine($"ID: {c.Id} | Etiqueta: {c.Etiqueta} | Cor: {c.Cor} | Nº: {c.Numero}");
+                Console.WriteLine($"ID: {c.Id} | Etiqueta: {c.Etiqueta} | Cor: {c.Cor} | Dias de Empréstimo: {c.DiasEmprestimo}");
             }
 
             Console.WriteLine("Pressione qualquer tecla para continuar...");
-            Console.ReadLine();
+            Console.ReadKey();
         }
 
         public void EditarCaixas()
@@ -90,7 +94,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
             Console.Write("Digite o ID da caixa que deseja editar: ");
             int id = Convert.ToInt32(Console.ReadLine());
 
-            Caixa caixaExistente = repositorio.caixas.FirstOrDefault(c => c.Id == id);
+            Caixa caixaExistente = repositorioCaixa.caixas.FirstOrDefault(c => c.Id == id);
 
             if (caixaExistente == null)
             {
@@ -98,6 +102,18 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
                 Console.ReadKey();
                 return;
             }
+
+            Console.Write("Nova etiqueta: ");
+            caixaExistente.Etiqueta = Console.ReadLine();
+
+            Console.Write("Nova cor: ");
+            caixaExistente.Cor = Console.ReadLine();
+
+            Console.Write("Novo número de dias de empréstimo: ");
+            caixaExistente.DiasEmprestimo = Convert.ToInt32(Console.ReadLine());
+
+            Console.WriteLine("Caixa editada com sucesso!");
+            Console.ReadKey();
         }
 
         public void ExcluirCaixa()
@@ -110,14 +126,15 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloCaixa
             Console.Write("Digite o ID da caixa que deseja excluir: ");
             int id = Convert.ToInt32(Console.ReadLine());
 
-            bool conseguiuExcluir = repositorio.Excluir(id);
+            bool conseguiuExcluir = repositorioCaixa.Excluir(id);
 
             if (conseguiuExcluir)
                 Console.WriteLine("Caixa excluída com sucesso!");
             else
-                Console.WriteLine("Caixa não encontrada!");
+                Console.WriteLine("Não foi possível excluir a caixa. Verifique se a caixa está sendo utilizada.");
 
             Console.ReadKey();
         }
     }
 }
+
