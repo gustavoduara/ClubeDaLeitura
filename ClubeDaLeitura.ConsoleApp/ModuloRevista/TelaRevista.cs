@@ -7,7 +7,7 @@ public class TelaRevista
 
     public TelaRevista(RepositorioRevista repositorioRevista, RepositorioCaixa repositorioCaixa)
     {
-        // Atribuindo corretamente os valores recebidos ao campo de instância
+       
         this.repositorioRevista = repositorioRevista;
         this.repositorioCaixa = repositorioCaixa;
     }

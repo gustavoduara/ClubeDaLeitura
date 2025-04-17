@@ -8,15 +8,15 @@ namespace ClubeDaLeitura.ConsoleApp
     {
         static void Main(string[] args)
         {
-            // Criando os repositórios
+            
             RepositorioAmigo repositorioAmigo = new RepositorioAmigo();
             RepositorioCaixa repositorioCaixa = new RepositorioCaixa();
             RepositorioRevista repositorioRevista = new RepositorioRevista();
             RepositorioEmprestimo repositorioEmprestimo = new RepositorioEmprestimo();
 
-            // Passando os repositórios para as telas
-            TelaAmigo telaAmigo = new TelaAmigo(repositorioAmigo); // Passando o repositório como parâmetro
-            TelaCaixa telaCaixa = new TelaCaixa(repositorioCaixa); // Passando o repositório como parâmetro
+            
+            TelaAmigo telaAmigo = new TelaAmigo(repositorioAmigo); 
+            TelaCaixa telaCaixa = new TelaCaixa(repositorioCaixa);
             TelaRevista telaRevista = new TelaRevista(repositorioRevista, repositorioCaixa);
             TelaEmprestimo telaEmprestimo = new TelaEmprestimo(repositorioAmigo, repositorioRevista);
 

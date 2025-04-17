@@ -1,12 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ClubeDaLeitur
-a.ConsoleApp.ModuloAmigo
-{
+﻿
     public class Amigo
     {
         public int Id { get; set; }
@@ -35,4 +27,4 @@ a.ConsoleApp.ModuloAmigo
             return "";
         }
     }
-}
+

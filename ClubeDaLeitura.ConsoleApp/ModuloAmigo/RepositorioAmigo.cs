@@ -24,8 +24,6 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
             Array.Copy(amigos, amigosListados, contador);
             return amigosListados;
         }
-
-        // Método para buscar um amigo pelo ID
         public Amigo SelecionarPorId(int id)
         {
             for (int i = 0; i < contador; i++)
@@ -33,7 +31,7 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
                 if (amigos[i].Id == id)
                     return amigos[i];
             }
-            return null;  // Retorna null se não encontrar o amigo com o ID especificado
+            return null;
         }
 
         public bool Excluir(int id)
@@ -42,7 +40,6 @@ namespace ClubeDaLeitura.ConsoleApp.ModuloAmigo
             {
                 if (amigos[i].Id == id)
                 {
-                    // Move os elementos à esquerda para preencher o vazio
                     for (int j = i; j < contador - 1; j++)
                     {
                         amigos[j] = amigos[j + 1];
